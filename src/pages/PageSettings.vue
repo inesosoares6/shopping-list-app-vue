@@ -14,10 +14,10 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Show tasks in one list</q-item-label>
+          <q-item-label>Show products in one list</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-toggle color="blue" v-model="showTasksInOneList" />
+          <q-toggle color="blue" v-model="showProductsInOneList" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -70,12 +70,12 @@ const show12HourTimeFormat = computed({
   },
 });
 
-const showTasksInOneList = computed({
+const showProductsInOneList = computed({
   get() {
-    return storeSettings.getSettings.showTasksInOneList;
+    return storeSettings.getSettings.showProductsInOneList;
   },
   set(value) {
-    storeSettings.setShowTasksInOneList(value);
+    storeSettings.setShowProductsInOneList(value);
   },
 });
 

@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pa-md absolute full-width full-height column">
-      <template v-if="storeCatalog.tasksDownloaded">
+      <template v-if="storeCatalog.productsDownloaded">
         <div class="row q-mb-lg">
           <search></search>
           <sort></sort>
@@ -9,35 +9,33 @@
 
         <p
           v-if="
-            storeCatalog.search &&
-            !Object.keys(storeCatalog.getTasksTodo).length &&
-            !Object.keys(storeCatalog.getTasksCompleted).length
+            storeCatalog.search && !Object.keys(storeCatalog.getProducts).length
           "
         >
           No search results.
         </p>
 
-        <q-scroll-area class="q-scroll-area-tasks">
-          <no-tasks
+        <q-scroll-area class="q-scroll-area-products">
+          <no-products
             v-if="
-              !Object.keys(storeCatalog.getTasksTodo).length &&
+              !Object.keys(storeCatalog.getProducts).length &&
               !storeCatalog.search &&
-              !storeSettings.settings.showTasksInOneList
+              !storeSettings.settings.showProductsInOneList
             "
-            @showAddTask="showAddTask = true"
+            @showAddProduct="showAddProduct = true"
             :text="'Catalog is empty!'"
             :showButton="true"
-          ></no-tasks>
+          ></no-products>
 
           <list-catalog
-            v-if="Object.keys(storeCatalog.getTasksTodo).length"
-            :tasksTodo="storeCatalog.getTasksTodo"
+            v-if="Object.keys(storeCatalog.getProducts).length"
+            :catalogListItems="storeCatalog.getProducts"
           ></list-catalog>
         </q-scroll-area>
 
         <div class="absolute-bottom text-center q-mb-lg no-pointer-events">
           <q-btn
-            @click="showAddTask = true"
+            @click="showAddProduct = true"
             class="all-pointer-events"
             round
             color="primary"
@@ -46,8 +44,8 @@
           />
         </div>
 
-        <q-dialog v-model="showAddTask">
-          <add-task @close="showAddTask = false"></add-task>
+        <q-dialog v-model="showAddProduct">
+          <add-product @close="showAddProduct = false"></add-product>
         </q-dialog>
       </template>
       <template v-else>
@@ -61,22 +59,22 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import NoTasks from "src/components/Tasks/NoProducts.vue";
-import ListCatalog from "components/Tasks/ListCatalog.vue";
-import AddTask from "src/components/Tasks/Modals/AddProduct.vue";
-import Search from "components/Tasks/Tools/Search.vue";
-import Sort from "components/Tasks/Tools/Sort.vue";
+import NoProducts from "src/components/Products/NoProducts.vue";
+import ListCatalog from "components/Products/ListCatalog.vue";
+import AddProduct from "src/components/Products/Modals/AddProduct.vue";
+import Search from "components/Products/Tools/Search.vue";
+import Sort from "components/Products/Tools/Sort.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useSettingsStore } from "src/stores/store-settings";
 
 const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 
-const showAddTask = ref(false);
+const showAddProduct = ref(false);
 </script>
 
 <style scoped lang="scss">
-.q-scroll-area-tasks {
+.q-scroll-area-products {
   display: flex;
   flex-grow: 1;
   .scroll {

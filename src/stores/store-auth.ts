@@ -9,6 +9,7 @@ import {
 import { LoginInfo } from "src/models";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 import { useCatalogStore } from "src/stores/store-catalog";
+import { useListStore } from "src/stores/store-list";
 
 export const useAuthStore = defineStore("storeAuth", {
   state: () => {
@@ -25,13 +26,17 @@ export const useAuthStore = defineStore("storeAuth", {
       firebaseAuth.onAuthStateChanged((user) => {
         Loading.hide();
         const storeCatalog = useCatalogStore();
+        const storeList = useListStore();
         if (user) {
           this.setLoggedIn(true);
           this.router.push("/");
           storeCatalog.fbReadData();
+          storeList.fbReadData();
         } else {
-          storeCatalog.clearTasks();
-          storeCatalog.setTasksDownloaded(false);
+          storeCatalog.clearProducts();
+          storeCatalog.setProductsDownloaded(false);
+          storeList.clearProducts();
+          storeList.setProductsDownloaded(false);
           this.setLoggedIn(false);
           this.router.replace("/auth");
         }

@@ -8,9 +8,9 @@
 
       <q-list separator bordered>
         <product-catalog
-          v-for="(task, key) in tasksTodo"
+          v-for="(product, key) in catalogListItems"
           :key="key"
-          :task="task"
+          :product="product"
           :id="key"
         ></product-catalog>
       </q-list>
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import ProductCatalog from "components/Tasks/ProductCatalog.vue";
+import ProductCatalog from "components/Products/ProductCatalog.vue";
 
-const props = defineProps(["tasksTodo"]);
+const props = defineProps(["catalogListItems"]);
 </script>

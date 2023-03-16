@@ -29,11 +29,7 @@ const options = [
   {
     label: "Name",
     value: "name",
-  },
-  {
-    label: "Date",
-    value: "dueDate",
-  },
+  }
 ];
 </script>
 

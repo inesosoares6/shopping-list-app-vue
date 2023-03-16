@@ -1,44 +1,28 @@
 <template>
   <q-page>
     <div class="q-pa-md absolute full-width full-height column">
-      <template v-if="storeCatalog.tasksDownloaded">
-        <div class="row q-mb-lg">
-          <search></search>
-          <sort></sort>
-        </div>
-
-        <p
-          v-if="
-            storeCatalog.search &&
-            !Object.keys(storeCatalog.getTasksTodo).length &&
-            !Object.keys(storeCatalog.getTasksCompleted).length
-          "
-        >
-          No search results.
-        </p>
-
-        <q-scroll-area class="q-scroll-area-tasks">
-          <no-tasks
+      <template v-if="storeList.productsDownloaded">
+        <q-scroll-area class="q-scroll-area-products">
+          <no-products
             v-if="
-              !Object.keys(storeCatalog.getTasksTodo).length &&
-              !storeCatalog.search &&
-              !storeSettings.settings.showTasksInOneList
+              !Object.keys(storeList.getProductsTodo).length &&
+              !storeSettings.settings.showProductsInOneList
             "
-            @showAddTask="showAddTask = true"
+            @showAddProduct="showAddProduct = true"
             :text="'No items in list!'"
             :show-button="false"
-          ></no-tasks>
+          ></no-products>
 
-          <task-todo
-            v-if="Object.keys(storeCatalog.getTasksTodo).length"
-            :tasksTodo="storeCatalog.getTasksTodo"
-          ></task-todo>
+          <todo-list
+            v-if="Object.keys(storeList.getProductsTodo).length"
+            :productsTodo="storeList.getProductsTodo"
+          ></todo-list>
 
-          <task-completed
-            v-if="Object.keys(storeCatalog.getTasksCompleted).length"
-            :tasksCompleted="storeCatalog.getTasksCompleted"
+          <cart-list
+            v-if="Object.keys(storeList.getProductsCompleted).length"
+            :productsCompleted="storeList.getProductsCompleted"
             class="q-mb-xl"
-          ></task-completed>
+          ></cart-list>
         </q-scroll-area>
       </template>
       <template v-else>
@@ -52,22 +36,20 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import NoTasks from "src/components/Tasks/NoProducts.vue";
-import TaskTodo from "src/components/Tasks/TodoList.vue";
-import TaskCompleted from "src/components/Tasks/CartList.vue";
-import Search from "components/Tasks/Tools/Search.vue";
-import Sort from "components/Tasks/Tools/Sort.vue";
-import { useCatalogStore } from "src/stores/store-catalog";
+import NoProducts from "src/components/Products/NoProducts.vue";
+import TodoList from "src/components/Products/TodoList.vue";
+import CartList from "src/components/Products/CartList.vue";
+import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
 
 const storeSettings = useSettingsStore();
-const storeCatalog = useCatalogStore();
+const storeList = useListStore();
 
-const showAddTask = ref(false);
+const showAddProduct = ref(false);
 </script>
 
 <style scoped lang="scss">
-.q-scroll-area-tasks {
+.q-scroll-area-products {
   display: flex;
   flex-grow: 1;
   .scroll {

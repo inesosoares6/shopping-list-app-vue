@@ -14,7 +14,7 @@
           flat
           color="primary"
           label="Add Product"
-          @click="$emit('showAddTask')"
+          @click="$emit('showAddProduct')"
         />
       </template>
     </q-banner>

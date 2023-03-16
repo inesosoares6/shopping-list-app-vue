@@ -4,9 +4,9 @@
     enter-active-class="animated zoomIn"
     leave-active-class="animated zoomOut"
   >
-    <div :class="{ 'q-mt-lg': !storeSettings.settings.showTasksInOneList }">
+    <div :class="{ 'q-mt-lg': !storeSettings.settings.showProductsInOneList }">
       <list-header
-        v-if="!storeSettings.settings.showTasksInOneList"
+        v-if="!storeSettings.settings.showProductsInOneList"
         :bgColor="'bg-green-4'"
       >
         <template v-slot:title>Cart</template>
@@ -22,12 +22,12 @@
       </list-header>
 
       <q-list separator bordered>
-        <task
-          v-for="(task, key) in tasksCompleted"
+        <product-list
+          v-for="(product, key) in productsCompleted"
           :key="key"
-          :task="task"
+          :product="product"
           :id="key"
-        ></task>
+        ></product-list>
       </q-list>
     </div>
   </transition>
@@ -35,19 +35,21 @@
 
 <script setup>
 import ListHeader from "components/Shared/ListHeader.vue";
-import Task from "components/Tasks/Task.vue";
+import ProductList from "src/components/Products/ProductList.vue";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useListStore } from "src/stores/store-list";
 import { useQuasar } from "quasar";
 
 const storeSettings = useSettingsStore();
+const storeList = useListStore();
 
-const props = defineProps(["tasksCompleted"]);
+const props = defineProps(["productsCompleted"]);
 
 const $q = useQuasar();
 const promptToDelete = () => {
   $q.dialog({
     title: "Confirm",
-    message: "Really delete cart?",
+    message: "Really empty cart?",
     ok: {
       push: true,
     },
@@ -56,7 +58,9 @@ const promptToDelete = () => {
     },
     persistent: true,
   }).onOk(() => {
-    console.log("delete cart");
+    Object.keys(props.productsCompleted).forEach((key) => {
+      storeList.fbDeleteProduct(key, true);
+    });
   });
 };
 </script>

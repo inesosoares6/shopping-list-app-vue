@@ -6,7 +6,7 @@ export const useSettingsStore = defineStore("storeSettings", {
     return {
       settings: {
         show12HourTimeFormat: false,
-        showTasksInOneList: false,
+        showProductsInOneList: false,
       },
     };
   },
@@ -20,8 +20,8 @@ export const useSettingsStore = defineStore("storeSettings", {
       this.settings.show12HourTimeFormat = value;
       this.saveSettings();
     },
-    setShowTasksInOneList(value: boolean) {
-      this.settings.showTasksInOneList = value;
+    setShowProductsInOneList(value: boolean) {
+      this.settings.showProductsInOneList = value;
       this.saveSettings();
     },
     saveSettings() {

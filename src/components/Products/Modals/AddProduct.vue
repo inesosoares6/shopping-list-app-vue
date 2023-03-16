@@ -23,10 +23,10 @@
 <script setup>
 import { ref } from "vue";
 import { useCatalogStore } from "src/stores/store-catalog";
-import ModalHeader from "components/Tasks/Modals/Shared/ModalHeader.vue";
-import ModalProductName from "src/components/Tasks/Modals/Shared/ModalProductName.vue";
-import ModalProductKeywords from "components/Tasks/Modals/Shared/ModalProductKeywords.vue";
-import ModalButtons from "components/Tasks/Modals/Shared/ModalButtons.vue";
+import ModalHeader from "components/Products/Modals/Shared/ModalHeader.vue";
+import ModalProductName from "src/components/Products/Modals/Shared/ModalProductName.vue";
+import ModalProductKeywords from "components/Products/Modals/Shared/ModalProductKeywords.vue";
+import ModalButtons from "components/Products/Modals/Shared/ModalButtons.vue";
 import { uid } from "quasar";
 
 const storeCatalog = useCatalogStore();
@@ -41,13 +41,13 @@ const nameProductRef = ref(null);
 const submitForm = () => {
   nameProductRef.value.nameRef.validate();
   if (!nameProductRef.value.nameRef.hasError) {
-    submitTask();
+    submitProduct();
   }
 };
 
 const emit = defineEmits(["close"]);
-const submitTask = () => {
-  storeCatalog.fbAddTask({ id: uid(), product: productToSubmit.value });
+const submitProduct = () => {
+  storeCatalog.fbAddProduct({ id: uid(), product: productToSubmit.value });
   emit("close");
 };
 

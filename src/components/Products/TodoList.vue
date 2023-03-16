@@ -6,18 +6,18 @@
   >
     <div>
       <list-header
-        v-if="!storeSettings.settings.showTasksInOneList"
+        v-if="!storeSettings.settings.showProductsInOneList"
         :bgColor="'bg-orange-4'"
         ><template v-slot:title>List</template></list-header
       >
 
       <q-list separator bordered>
-        <task
-          v-for="(task, key) in tasksTodo"
+        <product-list
+          v-for="(product, key) in productsTodo"
           :key="key"
-          :task="task"
+          :product="product"
           :id="key"
-        ></task>
+        ></product-list>
       </q-list>
     </div>
   </transition>
@@ -25,10 +25,10 @@
 
 <script setup>
 import ListHeader from "components/Shared/ListHeader.vue";
-import Task from "components/Tasks/Task.vue";
+import ProductList from "src/components/Products/ProductList.vue";
 import { useSettingsStore } from "src/stores/store-settings";
 
 const storeSettings = useSettingsStore();
 
-const props = defineProps(["tasksTodo"]);
+const props = defineProps(["productsTodo"]);
 </script>

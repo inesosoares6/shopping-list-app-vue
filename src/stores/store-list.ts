@@ -4,12 +4,10 @@ import { firebaseAuth, firebaseDb } from "src/boot/firebase";
 import { Payload, PayloadUpdate, ProductObject, Product } from "src/models";
 import { Notify } from "quasar";
 
-export const useCatalogStore = defineStore("storeCatalog", {
+export const useListStore = defineStore("storeList", {
   state: () => {
     return {
       products: {} as ProductObject,
-      search: "",
-      sort: "name" as keyof Product,
       productsDownloaded: false,
     };
   },
@@ -19,8 +17,8 @@ export const useCatalogStore = defineStore("storeCatalog", {
         keysOrdered = Object.keys(state.products);
 
       keysOrdered.sort((a, b) => {
-        let productAProp = (state.products[a][state.sort] as string).toLowerCase(),
-          productBProp = (state.products[b][state.sort] as string).toLowerCase();
+        let productAProp = (state.products[a]["name"] as string).toLowerCase(),
+          productBProp = (state.products[b]["name"] as string).toLowerCase();
         if (productAProp > productBProp) return 1;
         else if (productAProp < productBProp) return -1;
         else return 0;
@@ -32,32 +30,27 @@ export const useCatalogStore = defineStore("storeCatalog", {
 
       return productsSorted;
     },
-    getProductsFiltered(state): ProductObject {
+    getProductsTodo() {
       let productsSorted = this.getProductsSorted;
-      let productsFiltered = {} as ProductObject;
-      if (state.search) {
-        Object.keys(productsSorted).forEach((key) => {
-          let product = productsSorted[key],
-            productNameLowerCase = product.name.toLowerCase(),
-            searchLowerCase = state.search.toLocaleLowerCase();
-          if (productNameLowerCase.includes(searchLowerCase)) {
-            productsFiltered[key] = product;
-          }
-        });
-        return productsFiltered;
-      }
-      return productsSorted;
-    },
-    getProducts(): ProductObject {
-      let productsFiltered = this.getProductsFiltered;
       let products = {} as ProductObject;
-      Object.keys(productsFiltered).forEach((key) => {
-        let product = productsFiltered[key];
+      Object.keys(productsSorted).forEach((key) => {
+        let product = productsSorted[key];
         if (!product.completed) {
           products[key] = product;
         }
       });
 
+      return products;
+    },
+    getProductsCompleted() {
+      let productsSorted = this.getProductsSorted;
+      let products = {} as ProductObject;
+      Object.keys(productsSorted).forEach((key) => {
+        let product = productsSorted[key];
+        if (product.completed) {
+          products[key] = product;
+        }
+      });
       return products;
     },
   },
@@ -74,21 +67,15 @@ export const useCatalogStore = defineStore("storeCatalog", {
     clearProducts() {
       this.products = {};
     },
-    setSearch(value: string) {
-      this.search = value;
-    },
-    setSort(value: keyof Product) {
-      this.sort = value;
-    },
     setProductsDownloaded(value: boolean) {
       this.productsDownloaded = value;
     },
     fbReadData() {
       // const userId = firebaseAuth.currentUser?.uid;
-      const catalogProducts = firebaseDb.ref("lists/list1/catalog/");
+      const listProducts = firebaseDb.ref("lists/list1/list/");
 
       // initial check for data
-      catalogProducts.once(
+      listProducts.once(
         "value",
         () => {
           this.productsDownloaded = true;
@@ -99,7 +86,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
       );
 
       // child added
-      catalogProducts.on("child_added", (snapshot) => {
+      listProducts.on("child_added", (snapshot) => {
         const product = snapshot.val();
         this.addProduct({
           id: snapshot.key!,
@@ -108,7 +95,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
       });
 
       //child changed
-      catalogProducts.on("child_changed", (snapshot) => {
+      listProducts.on("child_changed", (snapshot) => {
         const product = snapshot.val();
         this.updateProduct({
           id: snapshot.key!,
@@ -117,34 +104,37 @@ export const useCatalogStore = defineStore("storeCatalog", {
       });
 
       //child removed
-      catalogProducts.on("child_removed", (snapshot) => {
+      listProducts.on("child_removed", (snapshot) => {
         this.deleteProduct(snapshot.key!);
       });
     },
     fbAddProduct(payload: Payload) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + payload.id);
+      const productRef = firebaseDb.ref("lists/list1/list/" + payload.id);
       productRef.set(payload.product, (error) => {
         if (error) showErrorMessage(error.message);
         else Notify.create("Product added!");
       });
     },
     fbUpdateProduct(payload: PayloadUpdate) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + payload.id);
+      const productRef = firebaseDb.ref("lists/list1/list/" + payload.id);
       productRef.update(payload.updates, (error) => {
         if (error) showErrorMessage(error.message);
         else {
           const keys = Object.keys(payload.updates);
-          if (!(keys.includes('completed') && keys.length == 1)) {
+          if (!(keys.includes("completed") && keys.length == 1)) {
             Notify.create("Product updated!");
           }
         }
       });
     },
-    fbDeleteProduct(productId: string) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + productId);
+    fbDeleteProduct(productId: string, cart: boolean) {
+      const productRef = firebaseDb.ref("lists/list1/list/" + productId);
       productRef.remove((error) => {
         if (error) showErrorMessage(error.message);
-        else Notify.create("Product deleted!");
+        else
+          cart
+            ? Notify.create("Cart emptied!")
+            : Notify.create("Product deleted!");
       });
     },
   },
