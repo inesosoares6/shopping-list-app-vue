@@ -34,6 +34,7 @@ const storeCatalog = useCatalogStore();
 const productToSubmit = ref({
   name: "",
   keywords: "",
+  selected: false,
 });
 
 const nameProductRef = ref(null);
