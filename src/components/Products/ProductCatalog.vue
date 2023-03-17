@@ -1,11 +1,17 @@
 <template>
   <q-item
-    class="bg-orange-1"
+    @click="
+      storeCatalog.fbUpdateProduct({
+        id: id,
+        updates: { selected: !product.selected },
+      })
+    "
+    :class="!product.selected ? 'bg-orange-1' : 'bg-orange-2'"
     clickable
     v-ripple
     v-touch-hold:1000.mouse="showEditProductModal"
   >
-    <q-item-section side>
+    <q-item-section side top>
       <q-checkbox v-model="product.selected" />
     </q-item-section>
     <q-item-section>

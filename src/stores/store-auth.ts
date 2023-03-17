@@ -15,6 +15,7 @@ export const useAuthStore = defineStore("storeAuth", {
   state: () => {
     return {
       loggedIn: false,
+      username: "Ines",
     };
   },
   getters: {},

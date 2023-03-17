@@ -19,8 +19,12 @@ export const useCatalogStore = defineStore("storeCatalog", {
         keysOrdered = Object.keys(state.products);
 
       keysOrdered.sort((a, b) => {
-        let productAProp = (state.products[a][state.sort] as string).toLowerCase(),
-          productBProp = (state.products[b][state.sort] as string).toLowerCase();
+        let productAProp = (
+            state.products[a][state.sort] as string
+          ).toLowerCase(),
+          productBProp = (
+            state.products[b][state.sort] as string
+          ).toLowerCase();
         if (productAProp > productBProp) return 1;
         else if (productAProp < productBProp) return -1;
         else return 0;
@@ -58,6 +62,17 @@ export const useCatalogStore = defineStore("storeCatalog", {
         }
       });
 
+      return products;
+    },
+    getProductsSelected() {
+      let productsSorted = this.getProductsSorted;
+      let products = {} as ProductObject;
+      Object.keys(productsSorted).forEach((key) => {
+        let product = productsSorted[key];
+        if (product.selected) {
+          products[key] = product;
+        }
+      });
       return products;
     },
   },
@@ -134,7 +149,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
         if (error) showErrorMessage(error.message);
         else {
           const keys = Object.keys(payload.updates);
-          if (!(keys.includes('completed') && keys.length == 1)) {
+          if (!(keys.includes("completed") || keys.includes("selected"))) {
             Notify.create("Product updated!");
           }
         }

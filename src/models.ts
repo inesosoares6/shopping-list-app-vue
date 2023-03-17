@@ -16,6 +16,9 @@ export interface Product {
   name: string;
   completed: boolean;
   keywords: string;
+  selected: boolean;
+  notes: string;
+  owner: string;
 }
 
 export interface LoginInfo {
