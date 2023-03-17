@@ -15,13 +15,16 @@ export const useAuthStore = defineStore("storeAuth", {
   state: () => {
     return {
       loggedIn: false,
-      username: "Ines",
+      username: "",
     };
   },
   getters: {},
   actions: {
     setLoggedIn(value: boolean) {
       this.loggedIn = value;
+    },
+    setUsername(value: string) {
+      this.username = value;
     },
     handleAuthStateChange() {
       firebaseAuth.onAuthStateChanged((user) => {

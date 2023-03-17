@@ -5,7 +5,7 @@
       :modelValue="name"
       @update:modelValue="(event) => $emit('update:name', event)"
       :rules="[(val) => !!val || 'Field is required']"
-      label="Product name"
+      :label="label"
       class="col"
       autofocus
       v-select-all
@@ -28,7 +28,7 @@ import { ref } from "vue";
 import { vSelectAll } from "src/directives/vSelectAll";
 
 const emit = defineEmits(["update:name"]);
-const props = defineProps(["name"]);
+const props = defineProps(["name", "label"]);
 
 const nameRef = ref(null);
 defineExpose({ nameRef });

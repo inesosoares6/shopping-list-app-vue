@@ -31,21 +31,32 @@
         </span>
       </template>
     </div>
+
+    <q-dialog v-model="showUsernamePopup">
+      <add-username @close="showUsernamePopup = false"></add-username>
+    </q-dialog>
   </q-page>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import TodoList from "src/components/Products/TodoList.vue";
 import CartList from "src/components/Products/CartList.vue";
+import AddUsername from "src/components/Products/Modals/AddUsername.vue";
+import { useAuthStore } from "src/stores/store-auth";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
 
+const storeAuth = useAuthStore();
 const storeSettings = useSettingsStore();
 const storeList = useListStore();
 
 const showAddProduct = ref(false);
+const showUsernamePopup = computed(() => {
+  return storeAuth.username === "";
+});
+
 </script>
 
 <style scoped lang="scss">
