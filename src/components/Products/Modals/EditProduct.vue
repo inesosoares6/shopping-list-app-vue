@@ -1,10 +1,11 @@
 <template>
   <q-card>
-    <modal-header>Edit Product</modal-header>
+    <modal-header :close="true">Edit Product</modal-header>
 
     <form @submit.prevent="submitForm">
       <q-card-section class="q-pt-none">
         <modal-product-name
+          :label="'Product Name'"
           v-model:name="productToSubmit.name"
           ref="nameProductRef"
         ></modal-product-name>
