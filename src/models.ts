@@ -28,6 +28,7 @@ export interface LoginInfo {
 
 export interface Settings {
   username: string;
+  list: string;
 }
 
 export interface PayloadSettings {

@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title class="absolute-center">
-          Shopping List
+          {{ storeSettings.getSettings.list }}
         </q-toolbar-title>
 
         <q-btn
@@ -91,8 +91,10 @@ import { ref } from "vue";
 import { useQuasar } from "quasar";
 import { useIpcRenderer } from "@vueuse/electron";
 import { useAuthStore } from "src/stores/store-auth";
+import { useSettingsStore } from "src/stores/store-settings";
 
 const storeAuth = useAuthStore();
+const storeSettings = useSettingsStore();
 
 const leftDrawerOpen = ref(false);
 const navs = [

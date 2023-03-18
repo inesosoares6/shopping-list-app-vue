@@ -8,11 +8,11 @@ export const useSettingsStore = defineStore("storeSettings", {
   state: () => {
     return {
       settings: {
-        // show12HourTimeFormat: false,
-        // showProductsInOneList: false,
         username: "",
+        list: "",
       },
       settingsDownloaded: false,
+      lists: [] as string[],
     };
   },
   getters: {
@@ -22,27 +22,37 @@ export const useSettingsStore = defineStore("storeSettings", {
   },
   actions: {
     updateSetting(payload: PayloadSettingsUpdate) {
-      Object.assign(this.settings[payload.id  as keyof Settings], payload.updates);
+      this.settings[payload.id] = payload.updates;
+      // Object.assign(this.settings[payload.id  as keyof Settings], payload.updates);
+
     },
     addSetting(payload: PayloadSettings) {
       this.settings[payload.id as keyof Settings] = payload.setting;
-    },
-    // setShow12HourTimeFormat(value: boolean) {
-    //   this.settings.show12HourTimeFormat = value;
-    //   this.saveSettings();
-    // },
-    // setShowProductsInOneList(value: boolean) {
-    //   this.settings.showProductsInOneList = value;
-    //   this.saveSettings();
-    // },
-    saveSettings() {
-      LocalStorage.set("settings", this.settings);
     },
     getSettingsStored() {
       const settings = LocalStorage.getItem("settings");
       if(settings) {
         Object.assign(this.settings, settings);
       }
+    },
+    getLists() {
+      const listArray: string[] = [];
+      const listSettings = firebaseDb.ref("lists/");
+      listSettings.on('value', (snapshot) => {
+        const data = snapshot.val();
+        Object.keys(data).forEach((key) => {
+          listArray.push(key);
+        });
+        this.lists = listArray;
+
+      });
+    },
+    setList(value: string) {
+      const userId = firebaseAuth.currentUser?.uid;
+      const userRef = firebaseDb.ref("users/" + userId);
+      userRef.update({list: value}, (error) => {
+        if (error) showErrorMessage(error.message);
+      });
     },
     setUsername(value: string) {
       const userId = firebaseAuth.currentUser?.uid;

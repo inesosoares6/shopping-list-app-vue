@@ -5,19 +5,14 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Show 12 hour time format</q-item-label>
+          <q-item-label>Select List</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-toggle color="blue" v-model="show12HourTimeFormat" />
-        </q-item-section>
-      </q-item>
-
-      <q-item tag="label" v-ripple>
-        <q-item-section>
-          <q-item-label>Show products in one list</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-toggle color="blue" v-model="showProductsInOneList" />
+          <q-select
+            outlined
+            v-model="model"
+            :options="options"
+          />
         </q-item-section>
       </q-item>
     </q-list>
@@ -56,27 +51,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import { openURL } from "quasar";
+import { useCatalogStore } from "src/stores/store-catalog";
+import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
 const storeSettings = useSettingsStore();
+const storeCatalog = useCatalogStore();
+const storeList = useListStore();
 
-const show12HourTimeFormat = computed({
-  get() {
-    return storeSettings.getSettings.show12HourTimeFormat;
-  },
-  set(value) {
-    storeSettings.setShow12HourTimeFormat(value);
-  },
+onMounted(() => {
+  storeSettings.getLists();
 });
 
-const showProductsInOneList = computed({
-  get() {
-    return storeSettings.getSettings.showProductsInOneList;
-  },
-  set(value) {
-    storeSettings.setShowProductsInOneList(value);
-  },
+const options = computed(() => {
+  return storeSettings.lists;
+});
+
+const model = ref(storeSettings.getSettings.list);
+
+watch(model, (newValue, oldValue) => {
+  storeSettings.setList(newValue);
 });
 
 const visitOurWebsite = () => {

@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { firebaseAuth, firebaseDb } from "src/boot/firebase";
 import { Payload, PayloadUpdate, ProductObject, Product } from "src/models";
 import { Notify } from "quasar";
+import { useSettingsStore } from "src/stores/store-settings";
 
 export const useCatalogStore = defineStore("storeCatalog", {
   state: () => {
@@ -99,8 +100,12 @@ export const useCatalogStore = defineStore("storeCatalog", {
       this.productsDownloaded = value;
     },
     fbReadData() {
-      // const userId = firebaseAuth.currentUser?.uid;
-      const catalogProducts = firebaseDb.ref("lists/list1/catalog/");
+
+      const storeSettings = useSettingsStore();
+      console.log(storeSettings.getSettings.list);
+      const catalogProducts = firebaseDb.ref(
+        "lists/" + storeSettings.getSettings.list + "/catalog/"
+      );
 
       // initial check for data
       catalogProducts.once(
@@ -137,14 +142,20 @@ export const useCatalogStore = defineStore("storeCatalog", {
       });
     },
     fbAddProduct(payload: Payload) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + payload.id);
+      const storeSettings = useSettingsStore();
+      const productRef = firebaseDb.ref(
+        "lists/" + storeSettings.getSettings.list + "/list/" + payload.id
+      );
       productRef.set(payload.product, (error) => {
         if (error) showErrorMessage(error.message);
         else Notify.create("Product added!");
       });
     },
     fbUpdateProduct(payload: PayloadUpdate) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + payload.id);
+      const storeSettings = useSettingsStore();
+      const productRef = firebaseDb.ref(
+        "lists/" + storeSettings.getSettings.list + "/list/" + payload.id
+      );
       productRef.update(payload.updates, (error) => {
         if (error) showErrorMessage(error.message);
         else {
@@ -156,7 +167,10 @@ export const useCatalogStore = defineStore("storeCatalog", {
       });
     },
     fbDeleteProduct(productId: string) {
-      const productRef = firebaseDb.ref("lists/list1/catalog/" + productId);
+      const storeSettings = useSettingsStore();
+      const productRef = firebaseDb.ref(
+        "lists/" + storeSettings.getSettings.list + "/list/" + productId
+      );
       productRef.remove((error) => {
         if (error) showErrorMessage(error.message);
         else Notify.create("Product deleted!");
