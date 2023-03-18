@@ -19,12 +19,12 @@
 
 <script setup>
 import { ref } from "vue";
-import { useAuthStore } from "src/stores/store-auth";
+import { useSettingsStore } from "src/stores/store-settings";
 import ModalHeader from "components/Products/Modals/Shared/ModalHeader.vue";
 import ModalProductName from "src/components/Products/Modals/Shared/ModalProductName.vue";
 import ModalButtons from "components/Products/Modals/Shared/ModalButtons.vue";
 
-const storeAuth = useAuthStore();
+const storeSettings = useSettingsStore();
 const nameProductRef = ref(null);
 const username = ref("");
 const emit = defineEmits(["close"]);
@@ -32,7 +32,7 @@ const emit = defineEmits(["close"]);
 const submitForm = () => {
   nameProductRef.value.nameRef.validate();
   if (!nameProductRef.value.nameRef.hasError) {
-    storeAuth.setUsername(username.value);
+    storeSettings.setUsername(username.value);
     emit("close");
   }
 };

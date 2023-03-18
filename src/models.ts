@@ -25,3 +25,17 @@ export interface LoginInfo {
   email: string;
   password: string;
 }
+
+export interface Settings {
+  username: string;
+}
+
+export interface PayloadSettings {
+  id: string;
+  setting: Settings;
+}
+
+export interface PayloadSettingsUpdate {
+  id: string;
+  updates: Settings;
+}

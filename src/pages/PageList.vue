@@ -4,10 +4,7 @@
       <template v-if="storeList.productsDownloaded">
         <q-scroll-area class="q-scroll-area-products">
           <no-products
-            v-if="
-              !Object.keys(storeList.getProductsTodo).length &&
-              !storeSettings.settings.showProductsInOneList
-            "
+            v-if="!Object.keys(storeList.getProductsTodo).length"
             @showAddProduct="showAddProduct = true"
             :text="'No items in list!'"
             :show-button="false"
@@ -24,6 +21,10 @@
             class="q-mb-xl"
           ></cart-list>
         </q-scroll-area>
+
+        <q-dialog v-model="showUsernamePopup">
+          <add-username @close="showUsernamePopup = false"></add-username>
+        </q-dialog>
       </template>
       <template v-else>
         <span class="absolute-center">
@@ -31,10 +32,6 @@
         </span>
       </template>
     </div>
-
-    <q-dialog v-model="showUsernamePopup">
-      <add-username @close="showUsernamePopup = false"></add-username>
-    </q-dialog>
   </q-page>
 </template>
 
@@ -44,19 +41,16 @@ import NoProducts from "src/components/Products/NoProducts.vue";
 import TodoList from "src/components/Products/TodoList.vue";
 import CartList from "src/components/Products/CartList.vue";
 import AddUsername from "src/components/Products/Modals/AddUsername.vue";
-import { useAuthStore } from "src/stores/store-auth";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
 
-const storeAuth = useAuthStore();
 const storeSettings = useSettingsStore();
 const storeList = useListStore();
 
 const showAddProduct = ref(false);
 const showUsernamePopup = computed(() => {
-  return storeAuth.username === "";
+  return storeSettings.settings.username === "";
 });
-
 </script>
 
 <style scoped lang="scss">

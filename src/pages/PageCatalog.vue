@@ -19,8 +19,7 @@
           <no-products
             v-if="
               !Object.keys(storeCatalog.getProducts).length &&
-              !storeCatalog.search &&
-              !storeSettings.settings.showProductsInOneList
+              !storeCatalog.search
             "
             @showAddProduct="showAddProduct = true"
             :text="'Catalog is empty!'"
@@ -65,9 +64,7 @@ import AddProduct from "src/components/Products/Modals/AddProduct.vue";
 import Search from "components/Products/Tools/Search.vue";
 import Sort from "components/Products/Tools/Sort.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
-import { useSettingsStore } from "src/stores/store-settings";
 
-const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 
 const showAddProduct = ref(false);
