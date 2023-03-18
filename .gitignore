@@ -5,6 +5,7 @@ node_modules
 # Quasar core related directories
 .quasar
 /dist
+/android
 
 # BEX related directories and files
 /src-bex/www
