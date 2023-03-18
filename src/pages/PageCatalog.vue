@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import ListCatalog from "components/Products/ListCatalog.vue";
 import AddProduct from "src/components/Products/Modals/AddProduct.vue";
@@ -66,7 +66,6 @@ import Sort from "components/Products/Tools/Sort.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
 
 const storeCatalog = useCatalogStore();
-
 const showAddProduct = ref(false);
 </script>
 

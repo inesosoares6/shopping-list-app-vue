@@ -23,7 +23,9 @@
         </q-scroll-area>
 
         <q-dialog v-model="showUsernamePopup">
-          <add-initial-settings @close="showUsernamePopup = false"></add-initial-settings>
+          <add-initial-settings
+            @close="showUsernamePopup = false"
+          ></add-initial-settings>
         </q-dialog>
       </template>
       <template v-else>
@@ -36,20 +38,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import TodoList from "src/components/Products/TodoList.vue";
 import CartList from "src/components/Products/CartList.vue";
 import AddInitialSettings from "src/components/Products/Modals/AddInitialSettings.vue";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useCatalogStore } from "src/stores/store-catalog";
 
+const storeCatalog = useCatalogStore();
 const storeSettings = useSettingsStore();
 const storeList = useListStore();
 
+watch(storeSettings.settings, () => {
+  storeList.fbReadData();
+  storeCatalog.fbReadData();
+});
+
 const showAddProduct = ref(false);
 const showUsernamePopup = computed(() => {
-  return storeSettings.settings.username === "" || storeSettings.settings.list === "";
+  return (
+    storeSettings.settings.username === "" || storeSettings.settings.list === ""
+  );
 });
 </script>
 

@@ -33,8 +33,6 @@ export const useAuthStore = defineStore("storeAuth", {
           this.setLoggedIn(true);
           this.router.push("/");
           storeSettings.fbReadData();
-          storeCatalog.fbReadData();
-          storeList.fbReadData();
         } else {
           storeCatalog.clearProducts();
           storeCatalog.setProductsDownloaded(false);

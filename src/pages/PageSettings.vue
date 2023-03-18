@@ -8,11 +8,7 @@
           <q-item-label>Select List</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-select
-            outlined
-            v-model="model"
-            :options="options"
-          />
+          <q-select outlined v-model="model" :options="options" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -70,8 +66,14 @@ const options = computed(() => {
 
 const model = ref(storeSettings.getSettings.list);
 
-watch(model, (newValue, oldValue) => {
+watch(model, (newValue) => {
+  storeCatalog.clearProducts();
+  storeCatalog.setProductsDownloaded(false);
+  storeList.clearProducts();
+  storeList.setProductsDownloaded(false);
   storeSettings.setList(newValue);
+  storeList.fbReadData();
+  storeCatalog.fbReadData();
 });
 
 const visitOurWebsite = () => {

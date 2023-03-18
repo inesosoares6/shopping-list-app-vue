@@ -100,9 +100,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
       this.productsDownloaded = value;
     },
     fbReadData() {
-
       const storeSettings = useSettingsStore();
-      console.log(storeSettings.getSettings.list);
       const catalogProducts = firebaseDb.ref(
         "lists/" + storeSettings.getSettings.list + "/catalog/"
       );
