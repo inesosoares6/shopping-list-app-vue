@@ -5,11 +5,11 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Select List</q-item-label>
+          <q-item-label>Add/Select List</q-item-label>
         </q-item-section>
         <q-item-section side>
           <div class="row">
-            <q-btn round flat icon="add" @click="showAddNewList = true" />
+            <q-btn flat round color="primary" icon="add" @click="showAddNewList = true" />
             <div style="min-width: 200px">
               <q-select outlined v-model="model" :options="options" />
             </div>
