@@ -64,7 +64,10 @@ const emit = defineEmits(["close"]);
 const submitProduct = () => {
   if (props.list) {
     productToSubmit.value.owner =
-      "edited by "+ storeAuth.username + " @ " + date.formatDate(Date.now(), "DD-MM");
+      "edited by " +
+      storeAuth.username +
+      " @ " +
+      date.formatDate(Date.now(), "DD-MM");
     storeList.fbUpdateProduct({
       id: props.id,
       updates: productToSubmit.value,

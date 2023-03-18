@@ -9,6 +9,7 @@ import { useSettingsStore } from "src/stores/store-settings";
 import { useAuthStore } from "src/stores/store-auth";
 import { useIpcRenderer } from "@vueuse/electron";
 import { useRouter } from "vue-router";
+
 const router = useRouter();
 
 const storeSettings = useSettingsStore();
@@ -25,4 +26,6 @@ onMounted(() => {
   storeSettings.getSettingsStored();
   storeAuth.handleAuthStateChange();
 });
+
+
 </script>

@@ -55,7 +55,7 @@ const addProductsToList = () => {
         owner:
           "added by " +
           storeSettings.settings.username +
-          "@" +
+          " @ " +
           date.formatDate(Date.now(), "DD-MM"),
       },
     });

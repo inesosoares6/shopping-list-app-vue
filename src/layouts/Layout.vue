@@ -81,7 +81,14 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <q-banner v-if="!isOnline" class="bg-grey-3 q-pa-lg">
+        <template v-slot:avatar>
+          <q-icon name="signal_wifi_off" color="primary" />
+        </template>
+        No internet connection. Please turn on the Wifi or mobile data to use
+        the app.
+      </q-banner>
+      <router-view  v-if="isOnline"/>
     </q-page-container>
   </q-layout>
 </template>
@@ -92,6 +99,10 @@ import { useQuasar } from "quasar";
 import { useIpcRenderer } from "@vueuse/electron";
 import { useAuthStore } from "src/stores/store-auth";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useNetwork } from '@vueuse/core'
+const { isOnline } = useNetwork()
+
+console.log(isOnline.value)
 
 const storeAuth = useAuthStore();
 const storeSettings = useSettingsStore();
