@@ -23,11 +23,10 @@ export const useSettingsStore = defineStore("storeSettings", {
   actions: {
     updateSetting(payload: PayloadSettingsUpdate) {
       this.settings[payload.id] = payload.updates;
-      // Object.assign(this.settings[payload.id  as keyof Settings], payload.updates);
 
     },
     addSetting(payload: PayloadSettings) {
-      this.settings[payload.id as keyof Settings] = payload.setting;
+      this.settings[payload.id] = payload.setting;
     },
     getSettingsStored() {
       const settings = LocalStorage.getItem("settings");

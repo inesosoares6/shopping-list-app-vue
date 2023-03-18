@@ -9,7 +9,13 @@
         </q-item-section>
         <q-item-section side>
           <div class="row">
-            <q-btn flat round color="primary" icon="add" @click="showAddNewList = true" />
+            <q-btn
+              flat
+              round
+              color="primary"
+              icon="add"
+              @click="showAddNewList = true"
+            />
             <div style="min-width: 200px">
               <q-select outlined v-model="model" :options="options" />
             </div>
@@ -111,7 +117,7 @@ watch(username, (newValue) => {
 });
 
 const showAddNewList = ref(false);
-const updateList = (value) => {
+const updateList = (value: string) => {
   model.value = value;
   showAddNewList.value = false;
 };

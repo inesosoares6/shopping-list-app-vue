@@ -44,8 +44,12 @@ export const useCatalogStore = defineStore("storeCatalog", {
         Object.keys(productsSorted).forEach((key) => {
           let product = productsSorted[key],
             productNameLowerCase = product.name.toLowerCase(),
+            productKeywordsLowerCase = product.keywords.toLowerCase(),
             searchLowerCase = state.search.toLocaleLowerCase();
-          if (productNameLowerCase.includes(searchLowerCase)) {
+          if (
+            productNameLowerCase.includes(searchLowerCase) ||
+            productKeywordsLowerCase.includes(searchLowerCase)
+          ) {
             productsFiltered[key] = product;
           }
         });

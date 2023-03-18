@@ -15,10 +15,11 @@
       <q-checkbox v-model="product.selected" />
     </q-item-section>
     <q-item-section>
-      <q-item-label v-html="filtered"> </q-item-label>
-      <q-item-label class="text-caption text-grey-6"
-        >{{ product.keywords }}
-      </q-item-label>
+      <q-item-label v-html="filtered" />
+      <q-item-label
+        class="text-caption text-grey-6"
+        v-html="filteredKeywords"
+      />
     </q-item-section>
     <q-item-section side>
       <div class="row">
@@ -92,5 +93,15 @@ const filtered = computed(() => {
     });
   }
   return props.product.name;
+});
+
+const filteredKeywords = computed(() => {
+  if (storeCatalog.search) {
+    let searchRegExp = new RegExp(storeCatalog.search, "ig");
+    return props.product.keywords.replace(searchRegExp, (match) => {
+      return '<span class="bg-yellow-6">' + match + "</span>";
+    });
+  }
+  return props.product.keywords;
 });
 </script>
