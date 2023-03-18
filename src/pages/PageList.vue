@@ -23,9 +23,10 @@
         </q-scroll-area>
 
         <q-dialog v-model="showUsernamePopup">
-          <add-initial-settings
+          <add-edit-settings
+            :newList="false"
             @close="showUsernamePopup = false"
-          ></add-initial-settings>
+          ></add-edit-settings>
         </q-dialog>
       </template>
       <template v-else>
@@ -42,7 +43,7 @@ import { ref, computed, watch } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import TodoList from "src/components/Products/TodoList.vue";
 import CartList from "src/components/Products/CartList.vue";
-import AddInitialSettings from "src/components/Products/Modals/AddInitialSettings.vue";
+import AddEditSettings from "src/components/Products/Modals/AddEditSettings.vue";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
 import { useCatalogStore } from "src/stores/store-catalog";

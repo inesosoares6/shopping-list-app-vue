@@ -8,8 +8,11 @@
           <q-item-label>Select List</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <div style="min-width: 200px">
-            <q-select outlined v-model="model" :options="options" />
+          <div class="row">
+            <q-btn round flat icon="add" @click="showAddNewList = true" />
+            <div style="min-width: 200px">
+              <q-select outlined v-model="model" :options="options" />
+            </div>
           </div>
         </q-item-section>
       </q-item>
@@ -61,12 +64,20 @@
         </q-item-section>
       </q-item>
     </q-list>
+
+    <q-dialog v-model="showAddNewList">
+      <add-edit-settings
+        :newList="true"
+        @close="updateList"
+      ></add-edit-settings>
+    </q-dialog>
   </q-page>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
 import { openURL } from "quasar";
+import AddEditSettings from "src/components/Products/Modals/AddEditSettings.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
@@ -98,6 +109,12 @@ watch(model, (newValue) => {
 watch(username, (newValue) => {
   storeSettings.setUsername(newValue);
 });
+
+const showAddNewList = ref(false);
+const updateList = (value) => {
+  model.value = value;
+  showAddNewList.value = false;
+};
 
 const visitOurWebsite = () => {
   openURL("http://www.google.com");

@@ -3,8 +3,6 @@ import { defineStore } from "pinia";
 import { LocalStorage } from "quasar";
 import { firebaseAuth, firebaseDb } from "src/boot/firebase";
 import { showErrorMessage } from "src/functions/function-show-error-message";
-import { useCatalogStore } from "src/stores/store-catalog";
-import { useListStore } from "src/stores/store-list";
 
 export const useSettingsStore = defineStore("storeSettings", {
   state: () => {
