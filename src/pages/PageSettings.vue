@@ -40,37 +40,6 @@
       </q-item>
     </q-list>
 
-    <q-list bordered padding>
-      <q-item-label header>More</q-item-label>
-
-      <q-item tag="label" v-ripple to="/settings/help">
-        <q-item-section>
-          <q-item-label>Help</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-icon name="chevron_right" />
-        </q-item-section>
-      </q-item>
-
-      <q-item tag="label" v-ripple @click="visitOurWebsite">
-        <q-item-section>
-          <q-item-label>Visit our website</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-icon name="chevron_right" />
-        </q-item-section>
-      </q-item>
-
-      <q-item tag="label" v-ripple @click="emailUs">
-        <q-item-section>
-          <q-item-label>Email us</q-item-label>
-        </q-item-section>
-        <q-item-section side>
-          <q-icon name="chevron_right" />
-        </q-item-section>
-      </q-item>
-    </q-list>
-
     <q-dialog v-model="showAddNewList">
       <add-edit-settings
         :newList="true"
@@ -82,7 +51,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from "vue";
-import { openURL } from "quasar";
 import AddEditSettings from "src/components/Products/Modals/AddEditSettings.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
@@ -122,12 +90,4 @@ const updateList = (value: string) => {
   showAddNewList.value = false;
 };
 
-const visitOurWebsite = () => {
-  openURL("http://www.google.com");
-};
-
-const emailUs = () => {
-  window.location.href =
-    "mailto:hello@awsometodo?subject=Awesome Todo Feedback";
-};
 </script>
