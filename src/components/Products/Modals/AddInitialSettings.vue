@@ -17,6 +17,7 @@
             v-model="list"
             :options="options"
             label="List Name"
+            required
           />
 
           <modal-product-name
@@ -55,11 +56,15 @@ const options = computed(() => {
 
 const emit = defineEmits(["close"]);
 const submitForm = () => {
-  nameProductRef.value.nameRef.validate();
-  if (!nameProductRef.value.nameRef.hasError) {
-    storeSettings.setUsername(username.value);
-    storeSettings.setList(list.value);
-    emit("close");
+  if (storeSettings.settings.username === "") {
+    nameProductRef.value.nameRef.validate();
+    if (!nameProductRef.value.nameRef.hasError) {
+      storeSettings.setUsername(username.value);
+    }
   }
+  if (storeSettings.settings.list === "") {
+    storeSettings.setList(list.value);
+  }
+  emit("close");
 };
 </script>

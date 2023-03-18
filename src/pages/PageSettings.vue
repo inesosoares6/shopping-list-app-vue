@@ -8,7 +8,25 @@
           <q-item-label>Select List</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-select outlined v-model="model" :options="options" />
+          <div style="min-width: 200px">
+            <q-select outlined v-model="model" :options="options" />
+          </div>
+        </q-item-section>
+      </q-item>
+
+      <q-item tag="label" v-ripple>
+        <q-item-section>
+          <q-item-label>Change Username</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <div style="min-width: 200px">
+            <q-input
+              outlined
+              v-model="username"
+              :rules="[(val) => !!val || 'Field is required']"
+              class="col"
+            />
+          </div>
         </q-item-section>
       </q-item>
     </q-list>
@@ -65,6 +83,7 @@ const options = computed(() => {
 });
 
 const model = ref(storeSettings.getSettings.list);
+const username = ref(storeSettings.getSettings.username);
 
 watch(model, (newValue) => {
   storeCatalog.clearProducts();
@@ -74,6 +93,10 @@ watch(model, (newValue) => {
   storeSettings.setList(newValue);
   storeList.fbReadData();
   storeCatalog.fbReadData();
+});
+
+watch(username, (newValue) => {
+  storeSettings.setUsername(newValue);
 });
 
 const visitOurWebsite = () => {

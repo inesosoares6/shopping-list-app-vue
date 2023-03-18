@@ -46,6 +46,12 @@
         <q-dialog v-model="showAddProduct">
           <add-product @close="showAddProduct = false"></add-product>
         </q-dialog>
+
+        <q-dialog v-model="showUsernamePopup">
+          <add-initial-settings
+            @close="showUsernamePopup = false"
+          ></add-initial-settings>
+        </q-dialog>
       </template>
       <template v-else>
         <span class="absolute-center">
@@ -57,16 +63,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref, computed } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import ListCatalog from "components/Products/ListCatalog.vue";
 import AddProduct from "src/components/Products/Modals/AddProduct.vue";
 import Search from "components/Products/Tools/Search.vue";
 import Sort from "components/Products/Tools/Sort.vue";
+import AddInitialSettings from "src/components/Products/Modals/AddInitialSettings.vue";
 import { useCatalogStore } from "src/stores/store-catalog";
+import { useSettingsStore } from "src/stores/store-settings";
 
+const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 const showAddProduct = ref(false);
+const showUsernamePopup = computed(() => {
+  return (
+    storeSettings.settings.username === "" || storeSettings.settings.list === ""
+  );
+});
 </script>
 
 <style scoped lang="scss">

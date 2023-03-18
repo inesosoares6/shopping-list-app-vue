@@ -59,7 +59,7 @@ export const useSettingsStore = defineStore("storeSettings", {
     setUsername(value: string) {
       const userId = firebaseAuth.currentUser?.uid;
       const userRef = firebaseDb.ref("users/" + userId);
-      userRef.set({username: value}, (error) => {
+      userRef.update({username: value}, (error) => {
         if (error) showErrorMessage(error.message);
       });
     },

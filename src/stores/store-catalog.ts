@@ -142,7 +142,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
     fbAddProduct(payload: Payload) {
       const storeSettings = useSettingsStore();
       const productRef = firebaseDb.ref(
-        "lists/" + storeSettings.getSettings.list + "/list/" + payload.id
+        "lists/" + storeSettings.getSettings.list + "/catalog/" + payload.id
       );
       productRef.set(payload.product, (error) => {
         if (error) showErrorMessage(error.message);
@@ -152,7 +152,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
     fbUpdateProduct(payload: PayloadUpdate) {
       const storeSettings = useSettingsStore();
       const productRef = firebaseDb.ref(
-        "lists/" + storeSettings.getSettings.list + "/list/" + payload.id
+        "lists/" + storeSettings.getSettings.list + "/catalog/" + payload.id
       );
       productRef.update(payload.updates, (error) => {
         if (error) showErrorMessage(error.message);
@@ -167,7 +167,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
     fbDeleteProduct(productId: string) {
       const storeSettings = useSettingsStore();
       const productRef = firebaseDb.ref(
-        "lists/" + storeSettings.getSettings.list + "/list/" + productId
+        "lists/" + storeSettings.getSettings.list + "/catalog/" + productId
       );
       productRef.remove((error) => {
         if (error) showErrorMessage(error.message);

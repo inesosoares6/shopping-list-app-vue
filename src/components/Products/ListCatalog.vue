@@ -33,10 +33,10 @@ import { computed } from "vue";
 import { uid, date } from "quasar";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
-import { useAuthStore } from "src/stores/store-auth";
+import { useSettingsStore } from "src/stores/store-settings";
 import ProductCatalog from "components/Products/ProductCatalog.vue";
 
-const storeAuth = useAuthStore();
+const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 const storeList = useListStore();
 const props = defineProps(["catalogListItems"]);
@@ -54,7 +54,7 @@ const addProductsToList = () => {
         selected: false,
         owner:
           "added by " +
-          storeAuth.username +
+          storeSettings.settings.username +
           "@" +
           date.formatDate(Date.now(), "DD-MM"),
       },
