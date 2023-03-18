@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pa-md absolute full-width full-height column">
-      <template v-if="storeList.productsDownloaded">
+      <template v-if="storeSettings.settingsDownloaded">
         <q-scroll-area class="q-scroll-area-products">
           <no-products
             v-if="!Object.keys(storeList.getProductsTodo).length"
@@ -53,16 +53,20 @@ const storeSettings = useSettingsStore();
 const storeList = useListStore();
 
 watch(storeSettings.settings, () => {
-  storeList.fbReadData();
-  storeCatalog.fbReadData();
+  if (storeSettings.settings.list !== "") {
+    storeList.fbReadData();
+    storeCatalog.fbReadData();
+  }
 });
 
 const showAddProduct = ref(false);
+
 const showUsernamePopup = computed(() => {
   return (
     storeSettings.settings.username === "" || storeSettings.settings.list === ""
   );
 });
+
 </script>
 
 <style scoped lang="scss">

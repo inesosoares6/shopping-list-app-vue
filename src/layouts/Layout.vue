@@ -88,7 +88,7 @@
         No internet connection. Please turn on the Wifi or mobile data to use
         the app.
       </q-banner>
-      <router-view  v-if="isOnline"/>
+      <router-view v-if="isOnline" />
     </q-page-container>
   </q-layout>
 </template>
@@ -99,10 +99,8 @@ import { useQuasar } from "quasar";
 import { useIpcRenderer } from "@vueuse/electron";
 import { useAuthStore } from "src/stores/store-auth";
 import { useSettingsStore } from "src/stores/store-settings";
-import { useNetwork } from '@vueuse/core'
-const { isOnline } = useNetwork()
-
-console.log(isOnline.value)
+import { useNetwork } from "@vueuse/core";
+const { isOnline } = useNetwork();
 
 const storeAuth = useAuthStore();
 const storeSettings = useSettingsStore();

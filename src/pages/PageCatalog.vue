@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <div class="q-pa-md absolute full-width full-height column">
-      <template v-if="storeCatalog.productsDownloaded">
+      <template v-if="storeSettings.settingsDownloaded">
         <div class="row q-mb-lg">
           <search></search>
           <sort></sort>

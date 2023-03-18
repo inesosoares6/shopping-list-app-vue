@@ -21,6 +21,12 @@ export const useSettingsStore = defineStore("storeSettings", {
     },
   },
   actions: {
+    clearSettings() {
+      this.settings = {
+        username: "",
+        list: ""
+      };
+    },
     updateSetting(payload: PayloadSettingsUpdate) {
       this.settings[payload.id] = payload.updates;
 

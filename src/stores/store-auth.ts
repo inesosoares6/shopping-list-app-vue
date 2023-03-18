@@ -38,6 +38,7 @@ export const useAuthStore = defineStore("storeAuth", {
           storeCatalog.setProductsDownloaded(false);
           storeList.clearProducts();
           storeList.setProductsDownloaded(false);
+          storeSettings.clearSettings();
           this.setLoggedIn(false);
           this.router.replace("/auth");
         }
