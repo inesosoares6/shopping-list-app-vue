@@ -27,6 +27,14 @@
           flat
           round
           dense
+          :color="product.favorite ? 'orange-5' : 'grey-5'"
+          icon="favorite"
+          @click.stop="updateFavorites"
+        />
+        <q-btn
+          flat
+          round
+          dense
           color="primary"
           icon="edit"
           @click.stop="showEditProductModal"
@@ -104,4 +112,13 @@ const filteredKeywords = computed(() => {
   }
   return props.product.keywords;
 });
+
+const updateFavorites = () => {
+  storeCatalog.fbUpdateProduct({
+    id: props.id,
+    updates: {
+      favorite: !props.product.favorite,
+    },
+  });
+};
 </script>

@@ -162,7 +162,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
         if (error) showErrorMessage(error.message);
         else {
           const keys = Object.keys(payload.updates);
-          if (!(keys.includes("completed") || keys.includes("selected"))) {
+          if (!(keys.includes("completed") || keys.includes("selected") || keys.includes("favorite"))) {
             Notify.create("Product updated!");
           }
         }

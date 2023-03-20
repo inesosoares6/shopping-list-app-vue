@@ -19,6 +19,7 @@ export interface Product {
   selected: boolean;
   notes: string;
   owner: string;
+  favorite: boolean;
 }
 
 export interface LoginInfo {

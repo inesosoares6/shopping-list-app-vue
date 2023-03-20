@@ -39,6 +39,7 @@ const productToSubmit = ref({
   owner: "",
   selected: false,
   completed: false,
+  favorite: false,
 });
 
 const nameProductRef = ref(null);
