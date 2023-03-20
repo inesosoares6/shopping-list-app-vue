@@ -5,12 +5,16 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
+  updateEmail,
+  deleteUser,
 } from "firebase/auth";
 import { LoginInfo } from "src/models";
 import { showErrorMessage } from "src/functions/function-show-error-message";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
+import { Notify } from "quasar";
 
 export const useAuthStore = defineStore("storeAuth", {
   state: () => {
@@ -72,6 +76,47 @@ export const useAuthStore = defineStore("storeAuth", {
     },
     logoutUser() {
       signOut(firebaseAuth);
+    },
+    passwordUpdate(newPassword: string) {
+      const user = firebaseAuth.currentUser;
+      if (user !== null) {
+        updatePassword(user, newPassword)
+          .then(() => {
+            Notify.create("Password updated!");
+          })
+          .catch((error: { message: string }) => {
+            showErrorMessage(error.message);
+          });
+      }
+    },
+    emailUpdate(newEmail: string) {
+      const user = firebaseAuth.currentUser;
+      if (user !== null) {
+        updateEmail(user, newEmail)
+          .then(() => {
+            Notify.create("Email updated!");
+          })
+          .catch((error: { message: string }) => {
+            showErrorMessage(error.message);
+          });
+      }
+    },
+    deleteAccount() {
+      const user = firebaseAuth.currentUser;
+      if (user !== null) {
+        const userRef = firebaseDb.ref("users/" + user.uid);
+        userRef.remove((error) => {
+          if (error) showErrorMessage(error.message);
+          else
+            deleteUser(user)
+              .then(() => {
+                Notify.create("Account deleted!");
+              })
+              .catch((error: { message: string }) => {
+                showErrorMessage(error.message);
+              });
+        });
+      }
     },
   },
 });

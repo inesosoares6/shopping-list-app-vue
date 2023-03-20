@@ -39,6 +39,31 @@
         </q-item-section>
       </q-item>
     </q-list>
+    <q-list class="q-mb-md" bordered padding>
+      <q-item-label header>Account</q-item-label>
+
+      <q-item tag="label" v-ripple @click="changePassword">
+        <q-item-section>
+          <q-item-label>Change password</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-icon name="chevron_right"></q-icon>
+        </q-item-section>
+      </q-item>
+
+      <q-item
+        tag="label"
+        v-ripple
+        @click="showDialog('Are you sure you want to delete your account?')"
+      >
+        <q-item-section>
+          <q-item-label>Delete account</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-icon name="chevron_right"></q-icon>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
     <q-dialog v-model="showAddNewList">
       <add-edit-settings
@@ -55,9 +80,12 @@ import AddEditSettings from "src/components/Products/Modals/AddEditSettings.vue"
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useAuthStore } from "src/stores/store-auth";
+import { useQuasar } from "quasar";
 const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 const storeList = useListStore();
+const storeAuth = useAuthStore();
 
 onMounted(() => {
   storeSettings.getLists();
@@ -90,4 +118,24 @@ const updateList = (value: string) => {
   showAddNewList.value = false;
 };
 
+const changePassword = () => {
+  console.log("change password");
+};
+
+const $q = useQuasar();
+const showDialog = (message: string) => {
+  $q.dialog({
+    title: "Confirm",
+    message: message,
+    ok: {
+      push: true,
+    },
+    cancel: {
+      color: "negative",
+    },
+    persistent: true,
+  }).onOk(() => {
+    storeAuth.deleteAccount();
+  });
+};
 </script>

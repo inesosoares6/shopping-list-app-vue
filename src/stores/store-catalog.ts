@@ -1,6 +1,6 @@
 import { showErrorMessage } from "src/functions/function-show-error-message";
 import { defineStore } from "pinia";
-import { firebaseAuth, firebaseDb } from "src/boot/firebase";
+import { firebaseDb } from "src/boot/firebase";
 import { Payload, PayloadUpdate, ProductObject, Product } from "src/models";
 import { Notify } from "quasar";
 import { useSettingsStore } from "src/stores/store-settings";
