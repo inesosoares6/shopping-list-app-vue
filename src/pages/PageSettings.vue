@@ -5,7 +5,7 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Add/Select List</q-item-label>
+          <q-item-label>Add/Select list</q-item-label>
         </q-item-section>
         <q-item-section side>
           <div class="row">
@@ -25,7 +25,7 @@
 
       <q-item tag="label" v-ripple>
         <q-item-section>
-          <q-item-label>Change Username</q-item-label>
+          <q-item-label>Change username</q-item-label>
         </q-item-section>
         <q-item-section side>
           <div style="min-width: 200px">
@@ -41,6 +41,15 @@
     </q-list>
     <q-list class="q-mb-md" bordered padding>
       <q-item-label header>Account</q-item-label>
+
+      <q-item tag="label" v-ripple @click="changeEmail">
+        <q-item-section>
+          <q-item-label>Change email</q-item-label>
+        </q-item-section>
+        <q-item-section side>
+          <q-icon name="chevron_right"></q-icon>
+        </q-item-section>
+      </q-item>
 
       <q-item tag="label" v-ripple @click="changePassword">
         <q-item-section>
@@ -116,6 +125,10 @@ const showAddNewList = ref(false);
 const updateList = (value: string) => {
   model.value = value;
   showAddNewList.value = false;
+};
+
+const changeEmail = () => {
+  console.log("change email");
 };
 
 const changePassword = () => {
