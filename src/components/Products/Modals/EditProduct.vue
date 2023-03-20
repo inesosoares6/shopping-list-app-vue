@@ -33,14 +33,14 @@ import { ref, onMounted } from "vue";
 import { date } from "quasar";
 import { useCatalogStore } from "src/stores/store-catalog";
 import { useListStore } from "src/stores/store-list";
-import { useAuthStore } from "src/stores/store-auth";
+import { useSettingsStore } from "src/stores/store-settings";
 import ModalHeader from "components/Products/Modals/Shared/ModalHeader.vue";
 import ModalProductName from "src/components/Products/Modals/Shared/ModalProductName.vue";
 import ModalProductKeywords from "components/Products/Modals/Shared/ModalProductKeywords.vue";
 import ModalProductNotes from "components/Products/Modals/Shared/ModalProductNotes.vue";
 import ModalButtons from "components/Products/Modals/Shared/ModalButtons.vue";
 
-const storeAuth = useAuthStore();
+const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
 const storeList = useListStore();
 const props = defineProps(["product", "id", "list"]);
@@ -65,7 +65,7 @@ const submitProduct = () => {
   if (props.list) {
     productToSubmit.value.owner =
       "edited by " +
-      storeAuth.username +
+      storeSettings.settings.username +
       " @ " +
       date.formatDate(Date.now(), "DD-MM");
     storeList.fbUpdateProduct({
