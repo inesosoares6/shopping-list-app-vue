@@ -69,6 +69,17 @@ export const useCatalogStore = defineStore("storeCatalog", {
 
       return products;
     },
+    getProductsFavorites() {
+      let productsSorted = this.getProductsSorted;
+      let products = {} as ProductObject;
+      Object.keys(productsSorted).forEach((key) => {
+        let product = productsSorted[key];
+        if (product.favorite) {
+          products[key] = product;
+        }
+      });
+      return products;
+    },
     getProductsSelected() {
       let productsSorted = this.getProductsSorted;
       let products = {} as ProductObject;

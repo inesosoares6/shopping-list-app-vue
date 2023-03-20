@@ -7,13 +7,23 @@
     <div>
       <div class="row">
         <q-btn
-          class="col q-mb-xs bg-orange-4"
+          class="col q-mr-xs q-mb-xs bg-orange-4"
           color="primary"
           icon="arrow_back_ios"
           label="Add to List"
-          @click="addProductsToList"
-          :disable="!Object.keys(storeCatalog.getProductsSelected).length"
+          @click="addProductsToList(productsSelectedToList)"
+          :disable="!Object.keys(productsSelectedToList).length"
         />
+        <div style="{width: 10px}">
+          <q-btn
+            class="col q-ml-xs q-mb-xs bg-orange-4"
+            color="primary"
+            icon="favorite"
+            label="Add Fav"
+            @click="addProductsToList(productsFavoritesToList)"
+            :disable="!Object.keys(productsFavoritesToList).length"
+          />
+        </div>
       </div>
 
       <q-list separator bordered>
@@ -41,13 +51,17 @@ const storeCatalog = useCatalogStore();
 const storeList = useListStore();
 const props = defineProps(["catalogListItems"]);
 
-const productsToList = computed(() => {
+const productsSelectedToList = computed(() => {
   return storeCatalog.getProductsSelected;
 });
 
-const addProductsToList = () => {
-  Object.keys(productsToList.value).forEach((key) => {
-    let product = productsToList.value[key];
+const productsFavoritesToList = computed(() => {
+  return storeCatalog.getProductsFavorites;
+});
+
+const addProductsToList = (productsToList) => {
+  Object.keys(productsToList).forEach((key) => {
+    let product = productsToList[key];
     storeCatalog.fbUpdateProduct({
       id: key,
       updates: {
