@@ -40,15 +40,10 @@
 
 <script setup>
 import { computed } from "vue";
-import { uid, date } from "quasar";
 import { useCatalogStore } from "src/stores/store-catalog";
-import { useListStore } from "src/stores/store-list";
-import { useSettingsStore } from "src/stores/store-settings";
 import ProductCatalog from "components/Products/ProductCatalog.vue";
 
-const storeSettings = useSettingsStore();
 const storeCatalog = useCatalogStore();
-const storeList = useListStore();
 const props = defineProps(["catalogListItems"]);
 
 const productsSelectedToList = computed(() => {
@@ -60,20 +55,6 @@ const productsFavoritesToList = computed(() => {
 });
 
 const addProductsToList = (productsToList) => {
-  Object.keys(productsToList).forEach((key) => {
-    let product = productsToList[key];
-    storeCatalog.fbUpdateProduct({
-      id: key,
-      updates: {
-        selected: false,
-        owner:
-          "added by " +
-          storeSettings.settings.username +
-          " @ " +
-          date.formatDate(Date.now(), "DD-MM"),
-      },
-    });
-    storeList.fbAddProduct({ id: uid(), product: product });
-  });
+  storeCatalog.addProductsToList(productsToList);
 };
 </script>

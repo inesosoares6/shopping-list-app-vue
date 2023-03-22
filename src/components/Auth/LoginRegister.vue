@@ -5,7 +5,7 @@
         <template v-slot:avatar>
           <q-icon name="account_circle" color="primary" />
         </template>
-        {{ titleCase }} to access your Todos anywhere!
+        {{ titleCase }} to access your shopping lists anywhere!
       </q-banner>
     </div>
     <div class="row q-mb-md">

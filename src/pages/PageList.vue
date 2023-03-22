@@ -5,9 +5,12 @@
         <q-scroll-area class="q-scroll-area-products">
           <no-products
             v-if="!Object.keys(storeList.getProductsTodo).length"
-            @showAddProduct="showAddProduct = true"
+            @showAddProduct="
+              storeCatalog.addProductsToList(productsFavoritesToList)
+            "
             :text="'No items in list!'"
-            :show-button="false"
+            :buttonText="'Add Favorites'"
+            :showButton="showButtonFavorites"
           ></no-products>
 
           <todo-list
@@ -23,10 +26,7 @@
         </q-scroll-area>
 
         <q-dialog v-model="showUsernamePopup">
-          <add-edit-settings
-            :newList="false"
-            @close="showUsernamePopup = false"
-          ></add-edit-settings>
+          <add-edit-settings :newList="false"></add-edit-settings>
         </q-dialog>
       </template>
       <template v-else>
@@ -38,8 +38,8 @@
   </q-page>
 </template>
 
-<script setup lang="ts">
-import { ref, computed, watch } from "vue";
+<script setup>
+import { computed, watch } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
 import TodoList from "src/components/Products/TodoList.vue";
 import CartList from "src/components/Products/CartList.vue";
@@ -59,14 +59,19 @@ watch(storeSettings.settings, () => {
   }
 });
 
-const showAddProduct = ref(false);
+const productsFavoritesToList = computed(() => {
+  return storeCatalog.getProductsFavorites;
+});
+
+const showButtonFavorites = computed(() => {
+  return Object.keys(productsFavoritesToList.value).length;
+});
 
 const showUsernamePopup = computed(() => {
   return (
     storeSettings.settings.username === "" || storeSettings.settings.list === ""
   );
 });
-
 </script>
 
 <style scoped lang="scss">

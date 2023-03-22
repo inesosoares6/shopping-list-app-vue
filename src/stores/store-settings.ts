@@ -1,4 +1,4 @@
-import { PayloadSettings, PayloadSettingsUpdate, Settings } from './../models';
+import { PayloadSettings, PayloadSettingsUpdate, Settings } from "./../models";
 import { defineStore } from "pinia";
 import { LocalStorage } from "quasar";
 import { firebaseAuth, firebaseDb } from "src/boot/firebase";
@@ -24,51 +24,51 @@ export const useSettingsStore = defineStore("storeSettings", {
     clearSettings() {
       this.settings = {
         username: "",
-        list: ""
+        list: "",
       };
     },
     updateSetting(payload: PayloadSettingsUpdate) {
       this.settings[payload.id] = payload.updates;
-
     },
     addSetting(payload: PayloadSettings) {
       this.settings[payload.id] = payload.setting;
     },
     getSettingsStored() {
       const settings = LocalStorage.getItem("settings");
-      if(settings) {
+      if (settings) {
         Object.assign(this.settings, settings);
       }
     },
     getLists() {
       const listArray: string[] = [];
       const listSettings = firebaseDb.ref("lists/");
-      listSettings.on('value', (snapshot) => {
+      listSettings.on("value", (snapshot) => {
         const data = snapshot.val();
-        Object.keys(data).forEach((key) => {
-          listArray.push(key);
-        });
-        this.lists = listArray;
-
+        if (data) {
+          Object.keys(data).forEach((key) => {
+            listArray.push(key);
+          });
+          this.lists = listArray;
+        }
       });
     },
     setList(value: string) {
       const userId = firebaseAuth.currentUser?.uid;
       const userRef = firebaseDb.ref("users/" + userId);
-      userRef.update({list: value}, (error) => {
+      userRef.update({ list: value }, (error) => {
         if (error) showErrorMessage(error.message);
       });
     },
     setUsername(value: string) {
       const userId = firebaseAuth.currentUser?.uid;
       const userRef = firebaseDb.ref("users/" + userId);
-      userRef.update({username: value}, (error) => {
+      userRef.update({ username: value }, (error) => {
         if (error) showErrorMessage(error.message);
       });
     },
     fbReadData() {
       const userId = firebaseAuth.currentUser?.uid;
-      const listSettings = firebaseDb.ref("users/"+ userId);
+      const listSettings = firebaseDb.ref("users/" + userId);
 
       // initial check for data
       listSettings.once(

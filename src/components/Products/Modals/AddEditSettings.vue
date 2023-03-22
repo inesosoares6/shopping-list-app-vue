@@ -12,7 +12,7 @@
 
         <div>
           <q-select
-            v-if="storeSettings.settings.list === '' && options"
+            v-if="storeSettings.settings.list === '' && options.length"
             outlined
             v-model="list"
             :options="options"
@@ -21,7 +21,7 @@
           />
 
           <modal-product-name
-            v-if="(storeSettings.settings.list === '' && !options) || newList"
+            v-if="(storeSettings.settings.list === '' && !options.length) || newList"
             :label="'List Name'"
             v-model:name="list"
             ref="listProductRef"

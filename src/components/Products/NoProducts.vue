@@ -9,11 +9,11 @@
         <q-icon name="check" color="primary" />
       </template>
       {{ props.text }}
-      <template v-slot:action v-if="props.showButton">
+      <template v-slot:action v-if="showButton">
         <q-btn
           flat
           color="primary"
-          label="Add Product"
+          :label="buttonText"
           @click="$emit('showAddProduct')"
         />
       </template>
@@ -23,5 +23,5 @@
 
 <script setup lang="ts">
 
-const props = defineProps(['text', 'showButton'])
+const props = defineProps(['text', 'buttonText', 'showButton'])
 </script>

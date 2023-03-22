@@ -2,8 +2,9 @@ import { showErrorMessage } from "src/functions/function-show-error-message";
 import { defineStore } from "pinia";
 import { firebaseDb } from "src/boot/firebase";
 import { Payload, PayloadUpdate, ProductObject, Product } from "src/models";
-import { Notify } from "quasar";
+import { Notify, date, uid } from "quasar";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useListStore } from "src/stores/store-list";
 
 export const useCatalogStore = defineStore("storeCatalog", {
   state: () => {
@@ -114,6 +115,25 @@ export const useCatalogStore = defineStore("storeCatalog", {
     setProductsDownloaded(value: boolean) {
       this.productsDownloaded = value;
     },
+    addProductsToList(productsToList: ProductObject) {
+      const storeSettings = useSettingsStore();
+      const storeList = useListStore();
+      Object.keys(productsToList).forEach((key) => {
+        let product = productsToList[key];
+        this.fbUpdateProduct({
+          id: key,
+          updates: {
+            selected: false,
+            owner:
+              "added by " +
+              storeSettings.settings.username +
+              " @ " +
+              date.formatDate(Date.now(), "DD-MM"),
+          },
+        });
+        storeList.fbAddProduct({ id: uid(), product: product });
+      });
+    },
     fbReadData() {
       const storeSettings = useSettingsStore();
       const catalogProducts = firebaseDb.ref(
@@ -173,7 +193,13 @@ export const useCatalogStore = defineStore("storeCatalog", {
         if (error) showErrorMessage(error.message);
         else {
           const keys = Object.keys(payload.updates);
-          if (!(keys.includes("completed") || keys.includes("selected") || keys.includes("favorite"))) {
+          if (
+            !(
+              keys.includes("completed") ||
+              keys.includes("selected") ||
+              keys.includes("favorite")
+            )
+          ) {
             Notify.create("Product updated!");
           }
         }

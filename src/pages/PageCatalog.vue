@@ -23,6 +23,7 @@
             "
             @showAddProduct="showAddProduct = true"
             :text="'Catalog is empty!'"
+            :buttonText="'Add Product'"
             :showButton="true"
           ></no-products>
 
@@ -50,7 +51,6 @@
         <q-dialog v-model="showUsernamePopup">
           <add-edit-settings
             :newList="false"
-            @close="showUsernamePopup = false"
           ></add-edit-settings>
         </q-dialog>
       </template>
