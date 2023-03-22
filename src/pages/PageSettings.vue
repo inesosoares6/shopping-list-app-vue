@@ -42,7 +42,16 @@
     <q-list class="q-mb-md" bordered padding>
       <q-item-label header>Account</q-item-label>
 
-      <q-item tag="label" v-ripple @click="changeEmail">
+      <q-item
+        tag="label"
+        v-ripple
+        @click="
+          showDialog({
+            action: 'change_email',
+            message: 'Write the new email address',
+          })
+        "
+      >
         <q-item-section>
           <q-item-label>Change email</q-item-label>
         </q-item-section>
@@ -51,7 +60,16 @@
         </q-item-section>
       </q-item>
 
-      <q-item tag="label" v-ripple @click="changePassword">
+      <q-item
+        tag="label"
+        v-ripple
+        @click="
+          showDialog({
+            action: 'change_password',
+            message: 'Write the new password',
+          })
+        "
+      >
         <q-item-section>
           <q-item-label>Change password</q-item-label>
         </q-item-section>
@@ -63,7 +81,12 @@
       <q-item
         tag="label"
         v-ripple
-        @click="showDialog('Are you sure you want to delete your account?')"
+        @click="
+          showDialog({
+            action: 'delete_account',
+            message: 'Are you sure you want to delete your account?',
+          })
+        "
       >
         <q-item-section>
           <q-item-label>Delete account</q-item-label>
@@ -127,28 +150,62 @@ const updateList = (value: string) => {
   showAddNewList.value = false;
 };
 
-const changeEmail = () => {
-  console.log("change email");
-};
-
-const changePassword = () => {
-  console.log("change password");
-};
-
 const $q = useQuasar();
-const showDialog = (message: string) => {
-  $q.dialog({
-    title: "Confirm",
-    message: message,
-    ok: {
-      push: true,
-    },
-    cancel: {
-      color: "negative",
-    },
-    persistent: true,
-  }).onOk(() => {
-    storeAuth.deleteAccount();
-  });
+const showDialog = (payload: { action: string; message: string }) => {
+  switch (payload.action) {
+    case "change_email":
+      $q.dialog({
+        title: "Update email",
+        message: payload.message,
+        prompt: {
+          model: "",
+          type: "text",
+        },
+        ok: {
+          push: true,
+        },
+        cancel: {
+          color: "negative",
+        },
+        persistent: true,
+      }).onOk((data) => {
+        storeAuth.emailUpdate(data);
+      });
+      break;
+    case "change_password":
+      $q.dialog({
+        title: "Update password",
+        message: payload.message,
+        prompt: {
+          model: "",
+          type: "password",
+        },
+        ok: {
+          push: true,
+        },
+        cancel: {
+          color: "negative",
+        },
+        persistent: true,
+      }).onOk((data) => {
+        storeAuth.passwordUpdate(data);
+      });
+      break;
+    case "delete_account":
+      $q.dialog({
+        title: "Delete account",
+        message: payload.message,
+        ok: {
+          push: true,
+        },
+        cancel: {
+          color: "negative",
+        },
+        persistent: true,
+      }).onOk(() => {
+        storeAuth.deleteAccount();
+      });
+      break;
+  }
 };
 </script>
