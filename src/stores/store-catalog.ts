@@ -122,6 +122,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
         let product = productsToList[key];
         this.fbUpdateProduct({
           id: key,
+          // @ts-ignore
           updates: {
             selected: false,
             owner:

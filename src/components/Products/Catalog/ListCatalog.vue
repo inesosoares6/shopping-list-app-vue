@@ -18,6 +18,6 @@
 </template>
 
 <script setup>
-import ProductCatalog from "components/Products/ProductCatalog.vue";
+import ProductCatalog from "src/components/Products/Catalog/ProductCatalog.vue";
 const props = defineProps(["catalogListItems"]);
 </script>

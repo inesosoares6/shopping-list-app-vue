@@ -57,8 +57,8 @@
 <script setup>
 import { computed, watch } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
-import TodoList from "src/components/Products/TodoList.vue";
-import CartList from "src/components/Products/CartList.vue";
+import TodoList from "src/components/Products/List/TodoList.vue";
+import CartList from "src/components/Products/List/CartList.vue";
 import AddEditSettings from "src/components/Products/Modals/AddEditSettings.vue";
 import { useListStore } from "src/stores/store-list";
 import { useSettingsStore } from "src/stores/store-settings";

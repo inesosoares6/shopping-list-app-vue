@@ -75,7 +75,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import NoProducts from "src/components/Products/NoProducts.vue";
-import ListCatalog from "components/Products/ListCatalog.vue";
+import ListCatalog from "src/components/Products/Catalog/ListCatalog.vue";
 import AddProduct from "src/components/Products/Modals/AddProduct.vue";
 import Search from "components/Products/Tools/Search.vue";
 import Sort from "components/Products/Tools/Sort.vue";

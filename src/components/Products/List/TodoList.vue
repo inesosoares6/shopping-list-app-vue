@@ -25,7 +25,7 @@
 
 <script setup>
 import ListHeader from "components/Shared/ListHeader.vue";
-import ProductList from "src/components/Products/ProductList.vue";
+import ProductList from "src/components/Products/List/ProductList.vue";
 import { useSettingsStore } from "src/stores/store-settings";
 
 const storeSettings = useSettingsStore();
