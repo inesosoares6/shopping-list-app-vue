@@ -36,6 +36,8 @@
             color="primary"
             icon-right="favorite"
             label="Add"
+            rounded
+            stack
           />
         </div>
 
