@@ -1,8 +1,8 @@
 {
-  "name": "awesome-todo",
+  "name": "shopping-list",
   "version": "0.0.1",
   "description": "A Quasar Project",
-  "productName": "Awesome Todo",
+  "productName": "Shopping List",
   "author": "Inês Soares <inesosoares.6@gmail.com>",
   "private": true,
   "scripts": {

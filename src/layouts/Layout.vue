@@ -132,7 +132,7 @@ const $q = useQuasar();
 const quitApp = () => {
   $q.dialog({
     title: "Confirm",
-    message: "Really quit Awesome Todo?",
+    message: "Really quit Shopping List?",
     ok: {
       push: true,
     },

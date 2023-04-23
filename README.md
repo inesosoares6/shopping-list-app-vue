@@ -1,4 +1,4 @@
-# Awesome Todo (awesome-todo)
+# Shopping List (shopping-list)
 
 A Quasar Project
 
