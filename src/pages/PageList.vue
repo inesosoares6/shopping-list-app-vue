@@ -25,6 +25,20 @@
           ></cart-list>
         </q-scroll-area>
 
+        <div
+          class="absolute-bottom text-right q-mb-lg no-pointer-events q-mr-md"
+          v-if="Object.keys(storeList.getProductsTodo).length"
+        >
+          <q-btn
+            @click="storeCatalog.addProductsToList(productsFavoritesToList)"
+            :disable="!Object.keys(productsFavoritesToList).length"
+            class="all-pointer-events"
+            color="primary"
+            icon-right="favorite"
+            label="Add"
+          />
+        </div>
+
         <q-dialog v-model="showUsernamePopup">
           <add-edit-settings :newList="false"></add-edit-settings>
         </q-dialog>
