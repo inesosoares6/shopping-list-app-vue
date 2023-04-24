@@ -1,11 +1,6 @@
 <template>
   <q-item
-    @click="
-      storeCatalog.fbUpdateProduct({
-        id: id,
-        updates: { selected: !product.selected },
-      })
-    "
+    @click="updateSelected"
     :class="!product.selected ? 'bg-orange-1' : 'bg-orange-2'"
     clickable
     v-ripple
@@ -118,6 +113,15 @@ const updateFavorites = () => {
     id: props.id,
     updates: {
       favorite: !props.product.favorite,
+    },
+  });
+};
+
+const updateSelected = () => {
+  storeCatalog.fbUpdateProduct({
+    id: props.id,
+    updates: {
+      selected: !props.product.selected,
     },
   });
 };
