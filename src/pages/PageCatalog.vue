@@ -17,7 +17,7 @@
 
         <div class="row" v-if="Object.keys(storeCatalog.getProducts).length">
           <q-btn
-            class="col q-mr-xs q-mb-xs bg-orange-4"
+            class="col q-mb-xs bg-orange-4"
             color="primary"
             icon="arrow_back_ios"
             label="Add to List"
