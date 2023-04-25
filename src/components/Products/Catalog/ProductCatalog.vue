@@ -7,7 +7,7 @@
     v-touch-hold:1000.mouse="showEditProductModal"
   >
     <q-item-section side top>
-      <q-checkbox v-model="product.selected" />
+      <q-checkbox v-model="product.selected" class="no-pointer-events" />
     </q-item-section>
     <q-item-section>
       <q-item-label v-html="filtered" />
