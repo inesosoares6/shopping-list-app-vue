@@ -23,7 +23,7 @@
           round
           dense
           :color="product.favorite ? 'orange-5' : 'grey-5'"
-          icon="favorite"
+          icon="star"
           @click.stop="updateFavorites"
         />
         <q-btn

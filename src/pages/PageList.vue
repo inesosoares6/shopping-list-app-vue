@@ -34,7 +34,7 @@
             :disable="!Object.keys(productsFavoritesToList).length"
             class="all-pointer-events"
             color="primary"
-            icon-right="favorite"
+            icon-right="star"
             label="Add"
             rounded
             stack
