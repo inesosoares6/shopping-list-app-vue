@@ -54,7 +54,7 @@ export const useListStore = defineStore("storeList", {
         }
       });
       return products;
-    },
+    }
   },
   actions: {
     updateProduct(payload: PayloadUpdate) {
@@ -117,10 +117,13 @@ export const useListStore = defineStore("storeList", {
       const productRef = firebaseDb.ref(
         "lists/" + storeSettings.getSettings.list + "/list/" + payload.id
       );
-      productRef.set(payload.product, (error) => {
-        if (error) showErrorMessage(error.message);
-        else Notify.create("Product added!");
-      });
+      if(!Object.keys(this.products).includes(payload.id)) {
+        productRef.set(payload.product, (error) => {
+          if (error) showErrorMessage(error.message);
+          else Notify.create("Product added!");
+        });
+      }
+
     },
     fbUpdateProduct(payload: PayloadUpdate) {
       const storeSettings = useSettingsStore();

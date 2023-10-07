@@ -22,6 +22,5 @@
 </template>
 
 <script setup lang="ts">
-
 const props = defineProps(['text', 'buttonText', 'showButton'])
 </script>

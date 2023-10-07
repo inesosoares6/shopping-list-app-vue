@@ -3,5 +3,3 @@
     <q-btn label="Save" color="primary" type="submit" />
   </q-card-actions>
 </template>
-
-<script setup></script>

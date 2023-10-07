@@ -8,22 +8,22 @@
           :label="'Product Name'"
           v-model:name="productToSubmit.name"
           ref="nameProductRef"
-        ></modal-product-name>
+        />
 
         <modal-product-notes
           v-if="list"
           v-model:notes="productToSubmit.notes"
           ref="notesProductRef"
-        ></modal-product-notes>
+        />
 
         <modal-product-keywords
           v-if="!list"
           v-model:keywords="productToSubmit.keywords"
           ref="keywordsProductRef"
-        ></modal-product-keywords>
+        />
       </q-card-section>
 
-      <modal-buttons></modal-buttons>
+      <modal-buttons />
     </form>
   </q-card>
 </template>

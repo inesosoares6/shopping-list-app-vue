@@ -190,22 +190,24 @@ export const useCatalogStore = defineStore("storeCatalog", {
       const productRef = firebaseDb.ref(
         "lists/" + storeSettings.getSettings.list + "/catalog/" + payload.id
       );
-      productRef.update(payload.updates, (error) => {
-        if (error) showErrorMessage(error.message);
-        else {
-          const keys = Object.keys(payload.updates);
-          if (
-            !(
-              keys.includes("completed") ||
-              keys.includes("selected") ||
-              keys.includes("favorite") ||
-              keys.includes("inList")
-            )
-          ) {
-            Notify.create("Product updated!");
+      if (Object.keys(this.products).includes(payload.id)) {
+        productRef.update(payload.updates, (error) => {
+          if (error) showErrorMessage(error.message);
+          else {
+            const keys = Object.keys(payload.updates);
+            if (
+              !(
+                keys.includes("completed") ||
+                keys.includes("selected") ||
+                keys.includes("favorite") ||
+                keys.includes("inList")
+              )
+            ) {
+              Notify.create("Product updated!");
+            }
           }
-        }
-      });
+        });
+      }
     },
     fbDeleteProduct(productId: string) {
       const storeSettings = useSettingsStore();

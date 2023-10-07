@@ -8,7 +8,7 @@
           :label="'Username'"
           v-model:name="username"
           ref="nameProductRef"
-        ></modal-product-name>
+        />
 
         <div>
           <q-select
@@ -21,15 +21,17 @@
           />
 
           <modal-product-name
-            v-if="(storeSettings.settings.list === '' && !options.length) || newList"
+            v-if="
+              (storeSettings.settings.list === '' && !options.length) || newList
+            "
             :label="'List Name'"
             v-model:name="list"
             ref="listProductRef"
-          ></modal-product-name>
+          />
         </div>
       </q-card-section>
 
-      <modal-buttons></modal-buttons>
+      <modal-buttons />
     </form>
   </q-card>
 </template>

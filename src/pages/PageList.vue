@@ -11,18 +11,18 @@
             :text="'No items in list!'"
             :buttonText="'Add Favorites'"
             :showButton="showButtonFavorites"
-          ></no-products>
+          />
 
           <todo-list
             v-if="Object.keys(storeList.getProductsTodo).length"
             :productsTodo="storeList.getProductsTodo"
-          ></todo-list>
+          />
 
           <cart-list
             v-if="Object.keys(storeList.getProductsCompleted).length"
             :productsCompleted="storeList.getProductsCompleted"
             class="q-mb-xl"
-          ></cart-list>
+          />
         </q-scroll-area>
 
         <div
@@ -42,7 +42,7 @@
         </div>
 
         <q-dialog v-model="showUsernamePopup">
-          <add-edit-settings :newList="false"></add-edit-settings>
+          <add-edit-settings :newList="false" />
         </q-dialog>
       </template>
       <template v-else>

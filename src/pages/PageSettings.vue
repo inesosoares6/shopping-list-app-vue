@@ -56,7 +56,7 @@
           <q-item-label>Change email</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-icon name="chevron_right"></q-icon>
+          <q-icon name="chevron_right" />
         </q-item-section>
       </q-item>
 
@@ -74,7 +74,7 @@
           <q-item-label>Change password</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-icon name="chevron_right"></q-icon>
+          <q-icon name="chevron_right" />
         </q-item-section>
       </q-item>
 
@@ -92,7 +92,7 @@
           <q-item-label>Delete account</q-item-label>
         </q-item-section>
         <q-item-section side>
-          <q-icon name="chevron_right"></q-icon>
+          <q-icon name="chevron_right" />
         </q-item-section>
       </q-item>
     </q-list>
@@ -101,7 +101,7 @@
       <add-edit-settings
         :newList="true"
         @close="updateList"
-      ></add-edit-settings>
+      />
     </q-dialog>
   </q-page>
 </template>

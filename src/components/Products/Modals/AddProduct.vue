@@ -8,15 +8,15 @@
           :label="'Product Name'"
           v-model:name="productToSubmit.name"
           ref="nameProductRef"
-        ></modal-product-name>
+        />
 
         <modal-product-keywords
           v-model:keywords="productToSubmit.keywords"
-          ref="keywordsProductRef"></modal-product-keywords>
-
+          ref="keywordsProductRef"
+        />
       </q-card-section>
 
-      <modal-buttons></modal-buttons>
+      <modal-buttons />
     </form>
   </q-card>
 </template>
@@ -40,7 +40,7 @@ const productToSubmit = ref({
   selected: false,
   completed: false,
   favorite: false,
-  inList: false
+  inList: false,
 });
 
 const nameProductRef = ref(null);
@@ -57,5 +57,4 @@ const submitProduct = () => {
   storeCatalog.fbAddProduct({ id: uid(), product: productToSubmit.value });
   emit("close");
 };
-
 </script>

@@ -7,8 +7,7 @@
       label="Keywords"
       class="col"
       ref="nameRef"
-    >
-    </q-input>
+    />
   </div>
 </template>
 

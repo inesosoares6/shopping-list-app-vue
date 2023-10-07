@@ -11,7 +11,7 @@
           :key="key"
           :product="product"
           :id="key"
-        ></product-catalog>
+        />
       </q-list>
     </div>
   </transition>

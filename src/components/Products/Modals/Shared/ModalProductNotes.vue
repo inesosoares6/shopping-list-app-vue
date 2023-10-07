@@ -7,8 +7,7 @@
       label="Notes"
       class="col"
       ref="nameRef"
-    >
-    </q-input>
+    />
   </div>
 </template>
 

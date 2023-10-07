@@ -3,8 +3,8 @@
     <div class="q-pa-md absolute full-width full-height column">
       <template v-if="storeSettings.settingsDownloaded">
         <div class="row q-mb-lg">
-          <search></search>
-          <sort></sort>
+          <search />
+          <sort />
         </div>
 
         <p
@@ -36,12 +36,12 @@
             :text="'Catalog is empty!'"
             :buttonText="'Add Product'"
             :showButton="true"
-          ></no-products>
+          />
 
           <list-catalog
             v-if="Object.keys(storeCatalog.getProducts).length"
             :catalogListItems="storeCatalog.getProducts"
-          ></list-catalog>
+          />
         </q-scroll-area>
 
         <div class="absolute-bottom text-center q-mb-lg no-pointer-events">
@@ -56,11 +56,11 @@
         </div>
 
         <q-dialog v-model="showAddProduct">
-          <add-product @close="showAddProduct = false"></add-product>
+          <add-product @close="showAddProduct = false" />
         </q-dialog>
 
         <q-dialog v-model="showUsernamePopup">
-          <add-edit-settings :newList="false"></add-edit-settings>
+          <add-edit-settings :newList="false" />
         </q-dialog>
       </template>
       <template v-else>

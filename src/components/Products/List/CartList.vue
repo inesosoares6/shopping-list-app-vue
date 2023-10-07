@@ -10,15 +10,16 @@
         :bgColor="'bg-green-4'"
       >
         <template v-slot:title>Cart</template>
-        <template v-slot:button
-          ><q-btn
+        <template v-slot:button>
+          <q-btn
             flat
             round
             dense
             color="green-10"
             icon="shopping_cart"
             @click.stop="promptToDelete()"
-        /></template>
+          />
+      </template>
       </list-header>
 
       <q-list separator bordered>
@@ -27,7 +28,7 @@
           :key="key"
           :product="product"
           :id="key"
-        ></product-list>
+        />
       </q-list>
     </div>
   </transition>

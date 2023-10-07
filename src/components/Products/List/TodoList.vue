@@ -8,8 +8,9 @@
       <list-header
         v-if="!storeSettings.settings.showProductsInOneList"
         :bgColor="'bg-orange-4'"
-        ><template v-slot:title>List</template></list-header
-      >
+        >
+        <template v-slot:title>List</template>
+      </list-header>
 
       <q-list separator bordered>
         <product-list
@@ -17,7 +18,7 @@
           :key="key"
           :product="product"
           :id="key"
-        ></product-list>
+        />
       </q-list>
     </div>
   </transition>
@@ -29,6 +30,5 @@ import ProductList from "src/components/Products/List/ProductList.vue";
 import { useSettingsStore } from "src/stores/store-settings";
 
 const storeSettings = useSettingsStore();
-
 const props = defineProps(["productsTodo"]);
 </script>
