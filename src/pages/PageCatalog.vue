@@ -19,7 +19,7 @@
           <q-btn
             class="col q-mb-xs bg-orange-4"
             color="primary"
-            icon="arrow_back_ios"
+            icon="keyboard_double_arrow_left"
             label="Add to List"
             @click="addProductsToList(productsSelectedToList)"
             :disable="!Object.keys(productsSelectedToList).length"
