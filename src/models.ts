@@ -9,7 +9,7 @@ export interface Payload {
 
 export interface PayloadUpdate {
   id: string;
-  updates: Product;
+  updates: Partial<Product>;
 }
 
 export interface Product {
@@ -20,6 +20,7 @@ export interface Product {
   notes: string;
   owner: string;
   favorite: boolean;
+  inList: boolean;
 }
 
 export interface LoginInfo {

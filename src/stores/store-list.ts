@@ -4,6 +4,7 @@ import { firebaseDb } from "src/boot/firebase";
 import { Payload, PayloadUpdate, ProductObject, Product } from "src/models";
 import { Notify } from "quasar";
 import { useSettingsStore } from "src/stores/store-settings";
+import { useCatalogStore } from "src/stores/store-catalog";
 
 export const useListStore = defineStore("storeList", {
   state: () => {
@@ -138,9 +139,17 @@ export const useListStore = defineStore("storeList", {
     },
     fbDeleteProduct(productId: string, cart: boolean) {
       const storeSettings = useSettingsStore();
+      const storeCatalog = useCatalogStore();
       const productRef = firebaseDb.ref(
         "lists/" + storeSettings.getSettings.list + "/list/" + productId
       );
+      storeCatalog.fbUpdateProduct({
+        id: productId,
+        updates: {
+          inList: false,
+        },
+      });
+
       productRef.remove((error) => {
         if (error) showErrorMessage(error.message);
         else

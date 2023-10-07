@@ -122,9 +122,9 @@ export const useCatalogStore = defineStore("storeCatalog", {
         let product = productsToList[key];
         this.fbUpdateProduct({
           id: key,
-          // @ts-ignore
           updates: {
             selected: false,
+            inList: true,
             owner:
               "added by " +
               storeSettings.settings.username +
@@ -132,7 +132,7 @@ export const useCatalogStore = defineStore("storeCatalog", {
               date.formatDate(Date.now(), "DD-MM"),
           },
         });
-        storeList.fbAddProduct({ id: uid(), product: product });
+        storeList.fbAddProduct({ id: key, product });
       });
     },
     fbReadData() {
@@ -198,7 +198,8 @@ export const useCatalogStore = defineStore("storeCatalog", {
             !(
               keys.includes("completed") ||
               keys.includes("selected") ||
-              keys.includes("favorite")
+              keys.includes("favorite") ||
+              keys.includes("inList")
             )
           ) {
             Notify.create("Product updated!");

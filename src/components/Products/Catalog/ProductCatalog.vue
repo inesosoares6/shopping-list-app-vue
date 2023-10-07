@@ -2,6 +2,7 @@
   <q-item
     @click="updateSelected"
     :class="!product.selected ? 'bg-orange-1' : 'bg-orange-2'"
+    :disable="product.inList"
     clickable
     v-ripple
     v-touch-hold:1000.mouse="showEditProductModal"

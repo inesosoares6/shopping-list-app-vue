@@ -40,6 +40,7 @@ const productToSubmit = ref({
   selected: false,
   completed: false,
   favorite: false,
+  inList: false
 });
 
 const nameProductRef = ref(null);
