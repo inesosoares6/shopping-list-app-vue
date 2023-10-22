@@ -1,5 +1,5 @@
 # shopping-list-app-vue
-A Quasar Project
+A common shopping list shared by our family to avoid miscommunication and keep track of the products we need to buy, this way everyone knows what we need at any time.
 
 <p align="center">
 <img width="814" alt="image" src="https://github.com/inesosoares6/shopping-list-app-vue/assets/76999213/a15a8da9-0a5e-458b-b506-015778a66a25">
