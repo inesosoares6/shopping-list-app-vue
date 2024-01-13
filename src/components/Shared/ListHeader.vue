@@ -6,10 +6,9 @@
     class="list-header text-white text-center"
   >
     <span class="text-bold text-subtitle1"><slot name="title"></slot></span>
-    <template v-slot:action v-if="bgColor=='bg-green-4'">
+    <template v-slot:action>
       <slot name="button"></slot>
-      </template>
-
+    </template>
   </q-banner>
 </template>
 

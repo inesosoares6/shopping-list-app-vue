@@ -19,7 +19,7 @@
             icon="shopping_cart"
             @click.stop="promptToDelete()"
           />
-      </template>
+        </template>
       </list-header>
 
       <q-list separator bordered>
