@@ -15,6 +15,7 @@
     "@capacitor/cli": "^4.7.0",
     "@capacitor/core": "^4.7.0",
     "@quasar/extras": "^1.0.0",
+    "@quasar/icongenie": "^3.1.1",
     "@vueuse/core": "^9.13.0",
     "@vueuse/electron": "^9.13.0",
     "cordova-res": "^0.15.4",
