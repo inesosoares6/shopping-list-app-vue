@@ -6,7 +6,8 @@ node_modules
 .quasar
 /dist
 /android
-/boot
+
+/src/boot
 /src-electron
 
 # BEX related directories and files
